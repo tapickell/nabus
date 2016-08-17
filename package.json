@@ -1,0 +1,24 @@
+{
+  "name": "nabus",
+  "version": "1.0.0",
+  "description": "Not Another Beautiful and Unique Snowflake ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tapickell/nabus.git"
+  },
+  "keywords": [
+    "snowflake",
+    "ditributed",
+    "idgen"
+  ],
+  "author": "@tapickell",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tapickell/nabus/issues"
+  },
+  "homepage": "https://github.com/tapickell/nabus#readme"
+}
