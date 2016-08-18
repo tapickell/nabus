@@ -1,8 +1,8 @@
 {
   "name": "nabus",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Not Another Beautiful and Unique Snowflake ",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "start": "node_modules/.bin/babel-node -- lib/index.js",
     "compile": "babel --presets es2015 -d lib/ src/",

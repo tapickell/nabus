@@ -5,12 +5,12 @@ const defaults = { machineId: 'default'
                  }
 
 // nabus : Array -> Function
-export default function nabus(args) {
+exports.nabus = function(args) {
   let {groupId, machineId, timestamp} = Object.assign({ }, defaults, args)
   let lastSF = null
 
   // next : -> String
-  function next() {
+  return function next() {
     lastSF = generateSF(lastSF, groupId, machineId, timestamp)
     return lastSF
   }
@@ -62,6 +62,4 @@ function addGroupIdDefault(arr) {
 function makeObjectFromArray(timestamp, groupId, machineId, sequence) {
   return {timestamp: timestamp, groupId: groupId, machineId: machineId, sequence: sequence}
 }
-
-export default nabus
 
