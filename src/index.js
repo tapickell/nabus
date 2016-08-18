@@ -1,41 +1,47 @@
+const zpad = require('zpad')
 const maxSequence = 9999
+const sequenceLength = 4
 const defaults = { machineId: 'default'
                  , groupId: null
-                 , timestamp: Date.now()
                  }
 
 // nabus : Array -> Function
 exports.nabus = function(args) {
-  let {groupId, machineId, timestamp} = Object.assign({ }, defaults, args)
+  let {groupId, machineId} = Object.assign({ }, defaults, args)
   let lastSF = null
 
   // next : -> String
   return function next() {
-    lastSF = generateSF(lastSF, groupId, machineId, timestamp)
+    lastSF = generateSF(lastSF, groupId, machineId)
     return lastSF
   }
 }
 
 // generateSF : Array -> String
-function generateSF(lastSF, groupId, machineId, now) {
+function generateSF(lastSF, groupId, machineId) {
   return lastSF ?
-    generateNextSF(lastSF, now) :
-    constructSF(now, groupId, machineId, null)
+    generateNextSF(lastSF, Date.now()) :
+    constructSF(Date.now(), groupId, machineId, null)
 }
 
 // generateNextSF : String -> Int -> String
 function generateNextSF(lastSF, now) {
   let {timestamp, groupId, machineId, sequence} = deconstructSF(lastSF)
-  if (timestamp === now) {
-    if (sequence >= maxSequence) {
+  if (parseInt(timestamp) == now) {
+    if (parseInt(sequence) >= maxSequence) {
       return generateNextSF(lastSF, Date.now())
     }
-    return constructSF(now, groupId, machineId, sequence+1)
+    return constructSF(now, groupId, machineId, incrementSequence(sequence))
   }
-  if (timestamp < now) {
+  if (parseInt(timestamp) < now) {
     return constructSF(now, groupId, machineId, null)
   }
-  throw (`Hello McFly, your timestamp is from the future! ${timestamp} > ${now}`)
+  throw (`Hello McFly, your timestamp is from the future! ${timestamp} > ${now} ${timestamp > now}`)
+}
+
+// incrementSequence : String -> String
+function incrementSequence(sequence) {
+  return zpad(parseInt(sequence)+1, sequenceLength)
 }
 
 // constructSF : Array -> String
